@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndGoal : MonoBehaviour
 {
@@ -8,9 +9,9 @@ public class EndGoal : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
     {
-        if (_scoringSystem.totalScore == _scoringSystem.totalCoins)
+        if (Scores.totalScore == Scores.totalCoins)
         {
-            Debug.Log("End game");
-        }
+			SceneManager.LoadScene("GameWon");
+		}
     }
 }

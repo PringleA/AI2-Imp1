@@ -11,6 +11,7 @@ public class EndGoal : MonoBehaviour
     {
         if (Scores.totalScore == Scores.totalCoins)
         {
+			Cursor.lockState = CursorLockMode.None;
 			SceneManager.LoadScene("GameWon");
 		}
     }

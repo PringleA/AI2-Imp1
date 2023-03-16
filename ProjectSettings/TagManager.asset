@@ -8,6 +8,8 @@ TagManager:
   - Score
   - Collectible
   - Enemy
+  - Cover
+  - Grid
   layers:
   - Default
   - TransparentFX

@@ -17,7 +17,7 @@ public class PlaceCoins : MonoBehaviour
 
 		// get grid size and scale to spread coins over
 		float gridSize;
-        float spreadScale = 10.0f;
+        float spreadScale = 9.0f;
         // y position of collectibles is always the same
         float yPos = 1.0f;
         // get extents of grid in level for range

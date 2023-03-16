@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyClass : MonoBehaviour
 {
-    public float health = 1;
+    public float health = 10;
 
     // Update is called once per frame
     void Update()

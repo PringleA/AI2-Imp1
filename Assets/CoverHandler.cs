@@ -43,14 +43,17 @@ public class CoverHandler : MonoBehaviour
 
 	void PlaceCover()
 	{
+		int randXPos;
+		int randZPos;
+		float yPos = 0.19f;
 		// iterating through cover and giving spots
 		int totalCover = cover.Length;
 		for (int i = 0; i < totalCover; i++)
 		{
-			int randXPos = Random.Range(0, totalSquares);
-			int randZPos = Random.Range(0, totalSquares);
+			randXPos = Random.Range(1, totalSquares-1);
+			randZPos = Random.Range(1, totalSquares-1);
 
-			cover[i].transform.position = new Vector3(xPositions[randXPos], 0, zPositions[randZPos]);
+			cover[i].transform.position = new Vector3(xPositions[randXPos], yPos, zPositions[randZPos]);
 		}
 	}
 

@@ -1,0 +1,62 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CoverHandler : MonoBehaviour
+{
+	GameObject[] cover;
+	Vector3 randPos;
+    float[] xPositions;
+	float[] zPositions;
+	float minPos = -20.0f;
+	float gridSpacing = 10.0f;
+	int totalSquares = 5;
+
+	// Start is called before the first frame update
+	void Start()
+    {
+		cover = GameObject.FindGameObjectsWithTag("Cover");
+		GetXZPositions();
+		PlaceCover();
+    }
+
+	void GetXZPositions()
+	{
+		float xPos = 0;
+		float zPos = 0;
+		// creating 5 different positions for a total of 25 unique potential positions
+		xPositions = new float[totalSquares];
+		zPositions = new float[totalSquares];
+
+		// data driven method of retrieving every potential position for cover
+		for (int i = 0; i < totalSquares; i++)
+		{
+			xPos = minPos + (i * gridSpacing);
+			for (int k = 0; k < totalSquares; k++)
+			{
+				zPos = minPos + (k * gridSpacing);
+				xPositions[i] = xPos;
+				zPositions[k] = zPos;
+			}
+		}
+	}
+
+	void PlaceCover()
+	{
+		// iterating through cover and giving spots
+		int totalCover = cover.Length;
+		for (int i = 0; i < totalCover; i++)
+		{
+			int randXPos = Random.Range(0, totalSquares);
+			int randZPos = Random.Range(0, totalSquares);
+
+			cover[i].transform.position = new Vector3(xPositions[randXPos], 0, zPositions[randZPos]);
+		}
+	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}

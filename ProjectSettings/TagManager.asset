@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Cover
   - Grid
+  - HidePosition
   layers:
   - Default
   - TransparentFX

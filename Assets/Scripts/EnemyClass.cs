@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class EnemyClass : MonoBehaviour
 {
-	public float maxHealth = 10;
+	public float maxHealth = 100;
 	private float health = 0;
 	public float damage = 1;
 	public float lookSpeed = 1;

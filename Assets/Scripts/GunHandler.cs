@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GunHandler : MonoBehaviour
 {
-    public float damage = 2.0f;
+    public float damage = 5.0f;
 	public float range = 999.0f;
     public float fireRate = 0.5f;
     float shootStart;

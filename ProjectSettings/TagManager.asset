@@ -11,6 +11,7 @@ TagManager:
   - Cover
   - Grid
   - HidePosition
+  - NavMesh
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Enemy
+  - Collectible
   - Character
   - Ground
   - 

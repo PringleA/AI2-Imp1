@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CoverHandler : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class CoverHandler : MonoBehaviour
 		cover = GameObject.FindGameObjectsWithTag("Cover");
 		GetXZPositions();
 		PlaceCover();
+		BakeNavMesh();
     }
 
 	void GetXZPositions()
@@ -55,6 +57,11 @@ public class CoverHandler : MonoBehaviour
 
 			cover[i].transform.position = new Vector3(xPositions[randXPos], yPos, zPositions[randZPos]);
 		}
+	}
+
+	void BakeNavMesh()
+	{
+		
 	}
 
     // Update is called once per frame

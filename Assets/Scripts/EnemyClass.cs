@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class EnemyClass : MonoBehaviour
@@ -135,8 +136,12 @@ public class EnemyClass : MonoBehaviour
 
 	private void MoveTowards(Vector3 coverPos)
 	{
-		var step = speed * Time.deltaTime;
-		transform.position = Vector3.MoveTowards(transform.position, coverPos, step);
+		//var step = speed * Time.deltaTime;
+		//transform.position = Vector3.MoveTowards(transform.position, coverPos, step);
+
+		NavMeshAgent agent = GetComponent<NavMeshAgent>();
+
+		agent.SetDestination(coverPos);
 
 		if (Vector3.Distance(transform.position, coverPos) < 0.001f)
 		{

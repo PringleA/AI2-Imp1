@@ -9,8 +9,8 @@ public class EnemyClass : MonoBehaviour
 {
 	public float maxHealth = 10;
 	private float health = 0;
-	public float speed = 0.1f;
 	public float damage = 1;
+	public float lookSpeed = 1;
 	private GameObject player;
 	private GameObject playerCam;
 	private GameObject[] cover;
@@ -44,31 +44,36 @@ public class EnemyClass : MonoBehaviour
 			Scores.AddKill(1);
 		}
 
+		StateTransform();
+	}
+
+	private void StateTransform()
+	{
 		if (player != null)
 		{
 			// if alerted and not hiding
-			if (alerted && behaviour.state != BehaviourHandler.EnemyState.HIDE)
+			if (alerted && behaviour.state != EnemyState.HIDE)
 			{
 				Rigidbody thisRB = GetComponent<Rigidbody>();
 				Vector3 playerPosition = player.transform.position;
 				Vector3 vectorToPlayer = playerPosition - transform.position;
 				transform.LookAt(playerPosition);
 				//check next behaviour
-				if (behaviour.state == BehaviourHandler.EnemyState.SHOOT)
+				if (behaviour.state == EnemyState.SHOOT)
 				{
 					//shoot at player
 				}
 			}
 			//
-			if (behaviour.state == BehaviourHandler.EnemyState.LOOK)
+			if (behaviour.state == EnemyState.LOOK)
 				IdleLook();
 
-			if (behaviour.state == BehaviourHandler.EnemyState.MOVE)
+			if (behaviour.state == EnemyState.MOVE)
 			{
-				
+
 			}
 
-			if (behaviour.state == BehaviourHandler.EnemyState.HIDE)
+			if (behaviour.state == EnemyState.HIDE)
 			{
 				//check next behaviour
 				if (!hidden)
@@ -78,7 +83,6 @@ public class EnemyClass : MonoBehaviour
 				}
 			}
 		}
-
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -102,6 +106,7 @@ public class EnemyClass : MonoBehaviour
 	private void IdleLook()
 	{
 
+		//gameObject.
 	}
 
 	private GameObject FindNearestCover()

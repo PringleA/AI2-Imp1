@@ -15,9 +15,12 @@ public class EnemyClass : MonoBehaviour
 	private GameObject playerCam;
 	private GameObject[] cover;
 	private BehaviourHandler behaviour;
+	private NavMeshAgent agent;
 	public Slider healthBar;
 	private bool alerted = false;
 	private bool hidden = false;
+	public bool isMoving = false;
+	public bool isHiding = false;
 
 	void Start()
 	{
@@ -26,6 +29,7 @@ public class EnemyClass : MonoBehaviour
 		cover = GameObject.FindGameObjectsWithTag("HidePosition");
 		behaviour = gameObject.GetComponent<BehaviourHandler>();
 		health = maxHealth;
+		agent = gameObject.GetComponent<NavMeshAgent>();
 	}
 
 	// Update is called once per frame
@@ -51,37 +55,77 @@ public class EnemyClass : MonoBehaviour
 	{
 		if (player != null)
 		{
-			// if alerted and not hiding
-			if (alerted && behaviour.state != EnemyState.HIDE)
+			switch (behaviour.state)
 			{
-				Rigidbody thisRB = GetComponent<Rigidbody>();
-				Vector3 playerPosition = player.transform.position;
-				Vector3 vectorToPlayer = playerPosition - transform.position;
-				transform.LookAt(playerPosition);
-				//check next behaviour
-				if (behaviour.state == EnemyState.SHOOT)
-				{
-					//shoot at player
-				}
+				case EnemyState.HIDE:
+					{
+						HideState();
+						break;
+					}
+				case EnemyState.MOVE:
+					{
+						MoveState();
+						break;
+					}
+				case EnemyState.LOOK:
+					{
+						LookState();
+						break;
+					}
+				case EnemyState.SHOOT:
+					{
+						ShootState();
+						break;
+					}
+				default:
+					break;
 			}
-			//
-			if (behaviour.state == EnemyState.LOOK)
-				IdleLook();
+		}
+	}
 
-			if (behaviour.state == EnemyState.MOVE)
-			{
+	private void HideState()
+	{
+		isMoving = false;
+		//check next behaviour
+		if (!hidden)
+		{
+			GameObject nearestCover = FindNearestCover();
+			Vector3 newPos = new Vector3(nearestCover.transform.position.x,
+			gameObject.transform.position.y,
+			nearestCover.transform.position.z);
+			if (!isHiding)
+				MoveTowardsCover(newPos);
 
-			}
+			if (Vector3.Distance(transform.position, newPos) < 0.001f)
+				hidden = true;
+		}
+	}
 
-			if (behaviour.state == EnemyState.HIDE)
-			{
-				//check next behaviour
-				if (!hidden)
-				{
-					GameObject nearestCover = FindNearestCover();
-					MoveTowards(nearestCover.transform.position);
-				}
-			}
+	private void MoveState()
+	{
+		isHiding = false;
+		if (!isMoving)
+			MoveToRandomSpot();
+	}
+
+	private void LookState()
+	{
+		isMoving = false;
+		isHiding = false;
+		IdleLook();
+	}
+	private void ShootState()
+	{
+		isMoving = false;
+		isHiding = false;
+		// if alerted and not hiding
+		if (alerted)
+		{
+			Rigidbody thisRB = GetComponent<Rigidbody>();
+			Vector3 playerPosition = player.transform.position;
+			Vector3 vectorToPlayer = playerPosition - transform.position;
+			transform.LookAt(playerPosition);
+			//shoot at player
 		}
 	}
 
@@ -139,18 +183,34 @@ public class EnemyClass : MonoBehaviour
 		return nearestObj;
 	}
 
-	private void MoveTowards(Vector3 coverPos)
+	private void MoveToRandomSpot()
+	{
+		// extents of level
+		float minPos = -15.0f;
+		float maxPos = 15.0f;
+
+		// get random spot within extents to move towards
+		float moveX = Random.Range(minPos, maxPos);
+		float moveY = gameObject.transform.position.y;
+		float moveZ = Random.Range(minPos, maxPos);
+
+		// create vector3 for moving towards
+		Vector3 movePos = new Vector3(moveX, moveY, moveZ);
+
+		// move enemy this direction
+		agent.SetDestination(movePos);
+		//gameObject.transform.LookAt(movePos);
+
+		isMoving = true;
+	}
+
+	private void MoveTowardsCover(Vector3 coverPos)
 	{
 		//var step = speed * Time.deltaTime;
 		//transform.position = Vector3.MoveTowards(transform.position, coverPos, step);
 
-		NavMeshAgent agent = GetComponent<NavMeshAgent>();
-
 		agent.SetDestination(coverPos);
-
-		if (Vector3.Distance(transform.position, coverPos) < 0.001f)
-		{
-			hidden = true;
-		}
+		//gameObject.transform.LookAt(coverPos);
+		isHiding = true;
 	}
 }

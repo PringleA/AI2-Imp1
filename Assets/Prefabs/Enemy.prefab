@@ -325,6 +325,8 @@ MonoBehaviour:
   damage: 1
   lookSpeed: 1
   healthBar: {fileID: 5530324495789813790}
+  isMoving: 0
+  isHiding: 0
 --- !u!114 &5494048663355600612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,9 +339,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1532c2f51332e14c9046ead629169c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mood: 1
-  state: 0
-  stateSwitchDelay: 5
+  mood: 2
+  state: 2
+  stateSwitchDelay: 12
 --- !u!195 &1895578318446709905
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -6305,6 +6305,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: stateSwitchDelay
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6458453142564488786, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
       propertyPath: m_AnchorMax.y

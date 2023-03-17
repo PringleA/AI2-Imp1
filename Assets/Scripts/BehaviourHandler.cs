@@ -1,22 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BehaviourHandler : MonoBehaviour
 {
     public EnemyMood mood;
     public EnemyState state;
-    public float stateSwitchDelay = 5.0f;
+    private EnemyClass enemyClass;
+    public float stateSwitchDelay = 2.0f;
     private float currentDelay = 0;
-    private bool findNewState = false;
+    private float randStartDelay = 0;
+	private bool findNewState = false;
     private ProbController prob;
+	private NavMeshAgent agent;
 
 	// Start is called before the first frame update
 	void Start()
     {
-	    prob = gameObject.transform.parent.GetComponent<ProbController>();
+        // varying initial decision for enemies
+		float minStartDelay = 0.0f;
+	    float maxStartDelay = 1.0f;
+		randStartDelay = Random.Range(minStartDelay, maxStartDelay);
+		currentDelay = randStartDelay;
 
-        if (prob == null)
+		prob = gameObject.transform.parent.GetComponent<ProbController>();
+		agent = gameObject.GetComponent<NavMeshAgent>();
+        enemyClass = gameObject.GetComponent<EnemyClass>();
+
+		if (prob == null)
             prob = new ProbController();
     }
 
@@ -24,18 +36,21 @@ public class BehaviourHandler : MonoBehaviour
     void Update()
     {
         // iterate delay for state switching
-		if (currentDelay < stateSwitchDelay)
-			currentDelay += Time.deltaTime;
+        if (currentDelay < stateSwitchDelay)
+            currentDelay += Time.fixedDeltaTime;
 
         // allow state change if max delay is reached
-		else if (currentDelay >= stateSwitchDelay)
-			findNewState = true;
+        else if (currentDelay >= stateSwitchDelay)
+        {
+            findNewState = true;
+			currentDelay = 0;
+		}
 
         if (findNewState)
         {
-            // use probability to calc next state and reset delay
             state = prob.CalculateNextState(mood);
-            currentDelay = 0;
-        }
+			findNewState = false;
+		}
+           
 	}
 }

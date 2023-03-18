@@ -36,9 +36,10 @@ public class GunHandler : MonoBehaviour
     void Shoot()
     {
         RaycastHit hit;
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+		int mask = (1 << LayerMask.NameToLayer("EnemyCollider"));
+		if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range, mask))
         {
-            EnemyClass enemy = hit.transform.GetComponent<EnemyClass>();
+            EnemyClass enemy = hit.transform.GetComponentInParent<EnemyClass>();
 
             if (enemy != null)
             {

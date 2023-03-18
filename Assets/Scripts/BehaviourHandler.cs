@@ -9,9 +9,9 @@ public class BehaviourHandler : MonoBehaviour
     public EnemyState state;
     private EnemyClass enemyClass;
     public float stateSwitchDelay = 2.0f;
-    private float currentDelay = 0;
-    private float randStartDelay = 0;
-	private bool findNewState = false;
+    public float currentDelay = 0;
+	public bool findNewState = false;
+	private float randStartDelay = 0;
     private ProbController prob;
 	private NavMeshAgent agent;
 
@@ -35,22 +35,24 @@ public class BehaviourHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // iterate delay for state switching
-        if (currentDelay < stateSwitchDelay)
-            currentDelay += Time.fixedDeltaTime;
-
-        // allow state change if max delay is reached
-        else if (currentDelay >= stateSwitchDelay)
+        if (!enemyClass.alerted)
         {
-            findNewState = true;
-			currentDelay = 0;
-		}
+            // iterate delay for state switching
+            if (currentDelay < stateSwitchDelay)
+                currentDelay += Time.fixedDeltaTime;
 
-        if (findNewState)
-        {
-            state = prob.CalculateNextState(mood);
-			findNewState = false;
-		}
-           
+            // allow state change if max delay is reached
+            else if (currentDelay >= stateSwitchDelay)
+            {
+                findNewState = true;
+                currentDelay = 0;
+            }
+
+            if (findNewState)
+            {
+                state = prob.CalculateNextState(mood);
+                findNewState = false;
+            }
+        } 
 	}
 }

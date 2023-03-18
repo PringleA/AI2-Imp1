@@ -12,11 +12,13 @@ TagManager:
   - Grid
   - HidePosition
   - NavMesh
+  - PlayerCapsule
+  - Wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - EnemyCollider
   - Water
   - UI
   - Enemy

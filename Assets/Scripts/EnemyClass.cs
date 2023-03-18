@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -12,16 +13,17 @@ public class EnemyClass : MonoBehaviour
 	public float damage = 1;
 	public float lookSpeed = 1.0f;
 	public float maxLookTime = 30.0f;
+	public float maxRange = 300.0f;
 	public bool isMoving = false;
 	public bool isHiding = false;
 	public bool isRotating = false;
+	public bool alerted = false;
 	public Slider healthBar;
 	// private
 	private float health = 0;
 	private float rotLength = 0;
 	private float currentYrot = 0;
 	private bool rotReversed = false;
-	private bool alerted = false;
 	private bool hidden = false;
 	private GameObject player;
 	private GameObject playerCam;
@@ -31,7 +33,7 @@ public class EnemyClass : MonoBehaviour
 
 	void Start()
 	{
-		player = GameObject.FindGameObjectWithTag("Player");
+		player = GameObject.FindGameObjectWithTag("PlayerCapsule");
 		playerCam = GameObject.FindGameObjectWithTag("MainCamera");
 		cover = GameObject.FindGameObjectsWithTag("HidePosition");
 		behaviour = gameObject.GetComponent<BehaviourHandler>();
@@ -55,38 +57,36 @@ public class EnemyClass : MonoBehaviour
 			Scores.AddKill(1);
 		}
 
+		//ShootRaycast();
 		StateTransform();
 	}
 
 	private void StateTransform()
 	{
-		if (player != null)
+		switch (behaviour.state)
 		{
-			switch (behaviour.state)
-			{
-				case EnemyState.HIDE:
-					{
-						HideState();
-						break;
-					}
-				case EnemyState.MOVE:
-					{
-						MoveState();
-						break;
-					}
-				case EnemyState.LOOK:
-					{
-						LookState();
-						break;
-					}
-				case EnemyState.SHOOT:
-					{
-						ShootState();
-						break;
-					}
-				default:
+			case EnemyState.HIDE:
+				{
+					HideState();
 					break;
-			}
+				}
+			case EnemyState.MOVE:
+				{
+					MoveState();
+					break;
+				}
+			case EnemyState.LOOK:
+				{
+					LookState();
+					break;
+				}
+			case EnemyState.SHOOT:
+				{
+					ShootState();
+					break;
+				}
+			default:
+				break;
 		}
 	}
 
@@ -131,23 +131,54 @@ public class EnemyClass : MonoBehaviour
 		// if alerted and not hiding
 		if (alerted)
 		{
-			Rigidbody thisRB = GetComponent<Rigidbody>();
-			Vector3 playerPosition = player.transform.position;
-			Vector3 vectorToPlayer = playerPosition - transform.position;
-			transform.LookAt(playerPosition);
-			//shoot at player
+			transform.LookAt(player.transform.position);
+			TryDamage();
+		}
+		//shoot at player
+	}
+
+	private void TryDamage()
+	{
+
+	}
+
+	private void OnTriggerStay(Collider other)
+	{
+		if (other.transform.GetComponent<PlayerController>() is PlayerController playerCheck)
+		{
+			ShootRaycast();
 		}
 	}
 
-	private void OnTriggerEnter(Collider other)
+	private void ShootRaycast()
 	{
-		PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+		RaycastHit hit;
 
-		// if object in trigger is player
-		if (playerHealth != null)
+		//test looking at player
+		Transform testLook = gameObject.transform;
+		testLook.LookAt(player.transform.position);
+
+		// set shoot direction and origin
+		Vector3 enemyPosition = GetComponentInChildren<RayController>().transform.position;
+		Vector3 enemyForward = testLook.transform.forward;
+
+		if (Physics.Raycast(enemyPosition, enemyForward, out hit, maxRange))
 		{
-			alerted = true;
-			//playerHealth.TakeDamage(damage);
+			Debug.DrawRay(enemyPosition, enemyForward, Color.green, 5000.0f);
+
+			PlayerController playerTest = hit.transform.GetComponent<PlayerController>();
+
+			if (playerTest != null)
+			{
+				agent.ResetPath();
+				alerted = true;
+				behaviour.state = EnemyState.SHOOT;
+				behaviour.currentDelay = 0;
+			}
+			else
+			{
+				alerted = false;
+			}
 		}
 	}
 
@@ -160,7 +191,7 @@ public class EnemyClass : MonoBehaviour
 	private void IdleLook()
 	{
 		// initial setup if just moved into idle movement
-		if (!isRotating)
+		if (!isRotating && !alerted)
 		{
 			agent.ResetPath();
 			isRotating = true;

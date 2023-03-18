@@ -19,7 +19,6 @@ public class CoverHandler : MonoBehaviour
 		cover = GameObject.FindGameObjectsWithTag("Cover");
 		GetXZPositions();
 		PlaceCover();
-		BakeNavMesh();
     }
 
 	void GetXZPositions()
@@ -48,20 +47,48 @@ public class CoverHandler : MonoBehaviour
 		int randXPos;
 		int randZPos;
 		float yPos = 0.19f;
+		bool uniqueCover = false;
 		// iterating through cover and giving spots
 		int totalCover = cover.Length;
-		for (int i = 0; i < totalCover; i++)
-		{
-			randXPos = Random.Range(1, totalSquares-1);
-			randZPos = Random.Range(1, totalSquares-1);
 
-			cover[i].transform.position = new Vector3(xPositions[randXPos], yPos, zPositions[randZPos]);
+		randXPos = Random.Range(1, totalSquares - 1);
+		randZPos = Random.Range(1, totalSquares - 1);
+
+		Vector3 testCoverPos = new Vector3(xPositions[randXPos], yPos, zPositions[randZPos]);
+		cover[0].transform.position = testCoverPos;
+
+		for (int i = 1; i < totalCover; i++)
+		{
+			uniqueCover = false;
+			// while cover is not unique
+			while (!uniqueCover)
+			{
+				// get new randomisation
+				randXPos = Random.Range(1, totalSquares - 1);
+				randZPos = Random.Range(1, totalSquares - 1);
+				testCoverPos = new Vector3(xPositions[randXPos], yPos, zPositions[randZPos]);
+
+				//check it is not the same as another piece of cover
+				uniqueCover = CheckNewCoverPos(i, testCoverPos);
+			}
+			//if while loop has ended, place cover at unique pos
+			cover[i].transform.position = testCoverPos;
 		}
 	}
 
-	void BakeNavMesh()
+	bool CheckNewCoverPos(int currentIteration, Vector3 testPos)
 	{
-		
+		/* set as true initially, if it equals one piece of cover 
+		 * it will be set and remain false for rest of function */
+		bool isUnique = true;
+		for (int i = 0; i < currentIteration; i++)
+		{
+			if (cover[i].transform.position.Equals(testPos))
+			{
+				isUnique = false;
+			}
+		}
+		return isUnique;
 	}
 
     // Update is called once per frame

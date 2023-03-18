@@ -7,20 +7,27 @@ using UnityEngine.UI;
 
 public class EnemyClass : MonoBehaviour
 {
+	// public
 	public float maxHealth = 100;
-	private float health = 0;
 	public float damage = 1;
-	public float lookSpeed = 1;
+	public float lookSpeed = 1.0f;
+	public float maxLookTime = 30.0f;
+	public bool isMoving = false;
+	public bool isHiding = false;
+	public bool isRotating = false;
+	public Slider healthBar;
+	// private
+	private float health = 0;
+	private float rotLength = 0;
+	private float currentYrot = 0;
+	private bool rotReversed = false;
+	private bool alerted = false;
+	private bool hidden = false;
 	private GameObject player;
 	private GameObject playerCam;
 	private GameObject[] cover;
-	private BehaviourHandler behaviour;
 	private NavMeshAgent agent;
-	public Slider healthBar;
-	private bool alerted = false;
-	private bool hidden = false;
-	public bool isMoving = false;
-	public bool isHiding = false;
+	private BehaviourHandler behaviour;
 
 	void Start()
 	{
@@ -86,6 +93,7 @@ public class EnemyClass : MonoBehaviour
 	private void HideState()
 	{
 		isMoving = false;
+		isRotating = false;
 		//check next behaviour
 		if (!hidden)
 		{
@@ -104,6 +112,7 @@ public class EnemyClass : MonoBehaviour
 	private void MoveState()
 	{
 		isHiding = false;
+		isRotating = false;
 		if (!isMoving)
 			MoveToRandomSpot();
 	}
@@ -118,6 +127,7 @@ public class EnemyClass : MonoBehaviour
 	{
 		isMoving = false;
 		isHiding = false;
+		isRotating = false;
 		// if alerted and not hiding
 		if (alerted)
 		{
@@ -149,8 +159,40 @@ public class EnemyClass : MonoBehaviour
 
 	private void IdleLook()
 	{
+		// initial setup if just moved into idle movement
+		if (!isRotating)
+		{
+			agent.ResetPath();
+			isRotating = true;
+		}
 
-		//gameObject.
+		float rotAdd = lookSpeed * Time.fixedDeltaTime;
+		rotLength += Time.fixedDeltaTime;
+
+		// rotate left and right at set look speed
+		if (isRotating)
+		{
+			if (!rotReversed)
+			{
+				currentYrot = rotAdd;
+			}
+			else if (rotReversed)
+			{
+				currentYrot = -rotAdd;
+			}
+
+			// flip rotation if max time reached
+			if (rotLength >= maxLookTime)
+			{
+				rotReversed = !rotReversed;
+				// reset timer
+				rotLength = 0;
+			}
+
+			// set new rotation each frame
+			gameObject.transform.Rotate(0, currentYrot, 0);
+
+		}
 	}
 
 	private GameObject FindNearestCover()

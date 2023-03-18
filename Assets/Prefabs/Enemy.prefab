@@ -323,10 +323,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   damage: 1
-  lookSpeed: 1
-  healthBar: {fileID: 5530324495789813790}
+  lookSpeed: 5
+  maxLookTime: 10
   isMoving: 0
   isHiding: 0
+  isRotating: 0
+  healthBar: {fileID: 5530324495789813790}
 --- !u!114 &5494048663355600612
 MonoBehaviour:
   m_ObjectHideFlags: 0

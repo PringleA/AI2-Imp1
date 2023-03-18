@@ -13,6 +13,8 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
 		Cursor.lockState = CursorLockMode.Locked;
+        Scores.ResetScores();
+        Scores.InitScores();
 		SceneManager.LoadScene("PlayGame");
 	}
 

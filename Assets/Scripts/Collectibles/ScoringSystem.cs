@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public static class Scores
 {
 	public static int totalScore = 0;
-	public static int totalCoins;
-    public static int totalEnemiesKilled;
-    public static int totalEnemies;
+	public static int totalCoins = 0;
+    public static int totalEnemiesKilled = 0;
+    public static int totalEnemies = 0;
 
 	public static void AddScore(int amount)
 	{
@@ -20,6 +20,20 @@ public static class Scores
     {
         totalEnemiesKilled += amount;
     }
+
+	public static void ResetScores()
+	{
+		totalScore = 0;
+		totalEnemies = 0;
+		totalEnemiesKilled = 0;
+		totalEnemies = 0;
+	}
+
+	public static void InitScores()
+	{
+		totalCoins = GameObject.FindGameObjectsWithTag("Collectible").Length;
+		totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+	}
 }
 
 public class ScoringSystem : MonoBehaviour
@@ -30,8 +44,8 @@ public class ScoringSystem : MonoBehaviour
 
 	private void Awake()
     {
-        Scores.totalCoins = GameObject.FindGameObjectsWithTag("Collectible").Length;
-		Scores.totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+		Scores.ResetScores();
+		Scores.InitScores();
 	}
 
     void Update()

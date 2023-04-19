@@ -7,6 +7,7 @@ public class GunHandler : MonoBehaviour
     public float damage = 5.0f;
 	public float range = 999.0f;
     public float fireRate = 0.5f;
+    public PlayerController player;
     float shootStart;
     bool canFire = true;
 
@@ -44,6 +45,10 @@ public class GunHandler : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
+				//enemy.playerVisible = true;
+				enemy.transform.LookAt(player.transform.position);
+				enemy.behaviour.state = EnemyState.SHOOT;
+                enemy.ShootRaycast();
             }
         }
     }

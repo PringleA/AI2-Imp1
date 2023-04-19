@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 7059839029192350796}
   m_Layer: 0
   m_Name: RaycastSpot
-  m_TagString: Untagged
+  m_TagString: EnemyRaycast
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361090063646648458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0.619}
+  m_LocalPosition: {x: -0, y: 0.29, z: 0.619}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -361,11 +361,13 @@ MonoBehaviour:
   lookSpeed: 5
   maxLookTime: 10
   maxRange: 999
+  fireRate: 3
   isMoving: 0
   isHiding: 0
   isRotating: 0
-  alerted: 0
+  playerVisible: 0
   healthBar: {fileID: 5530324495789813790}
+  behaviour: {fileID: 0}
 --- !u!114 &5494048663355600612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,6 +385,7 @@ MonoBehaviour:
   stateSwitchDelay: 12
   currentDelay: 0
   findNewState: 0
+  prob: {fileID: 0}
 --- !u!195 &1895578318446709905
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -416,8 +419,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.8, y: 0.5, z: 9.23}
-  m_Center: {x: 0, y: 0, z: 5.13}
+  m_Size: {x: 4.8, y: 0.5, z: 18.71}
+  m_Center: {x: 0, y: 0, z: 10.12}
 --- !u!1 &3254960013744147635
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,26 +10,29 @@ public class EnemyClass : MonoBehaviour
 {
 	// public
 	public float maxHealth = 100;
-	public float damage = 1;
+	public int damage = 10;
 	public float lookSpeed = 1.0f;
 	public float maxLookTime = 30.0f;
 	public float maxRange = 300.0f;
+	public float fireRate = 3.0f;
 	public bool isMoving = false;
 	public bool isHiding = false;
 	public bool isRotating = false;
-	public bool alerted = false;
+	public bool playerVisible = false;
 	public Slider healthBar;
+	public BehaviourHandler behaviour;
 	// private
 	private float health = 0;
 	private float rotLength = 0;
 	private float currentYrot = 0;
+	private float nextShotTime = 0;
 	private bool rotReversed = false;
 	private bool hidden = false;
 	private GameObject player;
 	private GameObject playerCam;
 	private GameObject[] cover;
 	private NavMeshAgent agent;
-	private BehaviourHandler behaviour;
+	private RayController raycastSpot;
 
 	void Start()
 	{
@@ -39,6 +42,7 @@ public class EnemyClass : MonoBehaviour
 		behaviour = gameObject.GetComponent<BehaviourHandler>();
 		health = maxHealth;
 		agent = gameObject.GetComponent<NavMeshAgent>();
+		raycastSpot = gameObject.GetComponentInChildren<RayController>();
 	}
 
 	// Update is called once per frame
@@ -59,6 +63,8 @@ public class EnemyClass : MonoBehaviour
 
 		//ShootRaycast();
 		StateTransform();
+
+		nextShotTime += Time.fixedDeltaTime;
 	}
 
 	private void StateTransform()
@@ -129,7 +135,7 @@ public class EnemyClass : MonoBehaviour
 		isHiding = false;
 		isRotating = false;
 		// if alerted and not hiding
-		if (alerted)
+		if (playerVisible)
 		{
 			transform.LookAt(player.transform.position);
 			TryDamage();
@@ -139,7 +145,17 @@ public class EnemyClass : MonoBehaviour
 
 	private void TryDamage()
 	{
+		//input distance between player and enemy
+		float distApart = Vector3.Distance(transform.position, player.transform.position);
+		// if shot is hit
+		if (behaviour.prob.AttemptShot(distApart, behaviour.mood) && nextShotTime > fireRate)
+		{
+			PlayerController playerController = player.GetComponentInParent<PlayerController>();
+			if (playerController != null)
+				playerController.TakeDamage(damage);
 
+			nextShotTime = 0;
+		}
 	}
 
 	private void OnTriggerStay(Collider other)
@@ -150,17 +166,19 @@ public class EnemyClass : MonoBehaviour
 		}
 	}
 
-	private void ShootRaycast()
+	public void ShootRaycast()
 	{
 		RaycastHit hit;
 
 		//test looking at player
-		Transform testLook = gameObject.transform;
-		testLook.LookAt(player.transform.position);
+		//GameObject testLook = gameObject;
+		//testLook.transform.LookAt(player.transform.position);
+
+
 
 		// set shoot direction and origin
-		Vector3 enemyPosition = GetComponentInChildren<RayController>().transform.position;
-		Vector3 enemyForward = testLook.transform.forward;
+		Vector3 enemyPosition = raycastSpot.transform.position;
+		Vector3 enemyForward = raycastSpot.transform.forward;
 
 		if (Physics.Raycast(enemyPosition, enemyForward, out hit, maxRange))
 		{
@@ -170,14 +188,17 @@ public class EnemyClass : MonoBehaviour
 
 			if (playerTest != null)
 			{
+				transform.LookAt(player.transform.position);
 				agent.ResetPath();
-				alerted = true;
+				playerVisible = true;
 				behaviour.state = EnemyState.SHOOT;
+				behaviour.findNewState = false;
+				ShootState();
 				behaviour.currentDelay = 0;
 			}
 			else
 			{
-				alerted = false;
+				playerVisible = false;
 			}
 		}
 	}
@@ -191,7 +212,7 @@ public class EnemyClass : MonoBehaviour
 	private void IdleLook()
 	{
 		// initial setup if just moved into idle movement
-		if (!isRotating && !alerted)
+		if (!isRotating && !playerVisible)
 		{
 			agent.ResetPath();
 			isRotating = true;

@@ -12,8 +12,9 @@ public class BehaviourHandler : MonoBehaviour
     public float currentDelay = 0;
 	public bool findNewState = false;
 	private float randStartDelay = 0;
-    private ProbController prob;
+    public ProbController prob;
 	private NavMeshAgent agent;
+    //private float min
 
 	// Start is called before the first frame update
 	void Start()
@@ -35,7 +36,7 @@ public class BehaviourHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!enemyClass.alerted)
+        if (!enemyClass.playerVisible)
         {
             // iterate delay for state switching
             if (currentDelay < stateSwitchDelay)

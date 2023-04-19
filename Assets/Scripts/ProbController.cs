@@ -9,10 +9,13 @@ public class ProbController : MonoBehaviour
 	private StateProbability probPassive;
 	public float uncertainty;
 
+	public DistRange dist;
+	public ShotChance shotChance;
+	public PlayerDist playerDist;
+
 	// Start is called before the first frame update
 	void Awake()
     {
-		
 		CreateProbabilities();
     }
 
@@ -24,6 +27,14 @@ public class ProbController : MonoBehaviour
 
 	void CreateProbabilities()
 	{
+		dist.far = 17.5f;
+		dist.medium = 12.5f;
+		dist.near = 7.5f;
+
+		shotChance.high = 0.75f;
+		shotChance.medium = 0.5f;
+		shotChance.low = 0.25f;
+
 		// aggressive probablibites
 		probAggressive.hide.x = 0.0f;
 		probAggressive.hide.y = 0.2f;
@@ -99,6 +110,99 @@ public class ProbController : MonoBehaviour
 
 		return state;
 	}
+
+	public bool AttemptShot(float distance, EnemyMood mood)
+	{
+		PlayerDist testDist = FindPlayerDist(distance);
+
+		// depending on mood, enemy will actually shoot at player or not
+		switch (mood)
+		{
+			case EnemyMood.PASSIVE:
+				{
+					switch (testDist)
+					{
+						case PlayerDist.NEAR:
+							return CalculateShot(testDist);
+						case PlayerDist.MEDIUM:
+							return false;
+						case PlayerDist.FAR:
+							return false;
+						default:
+							return false;
+					}
+				}
+			case EnemyMood.NEUTRAL:
+				{
+					switch (testDist)
+					{
+						case PlayerDist.NEAR:
+							return CalculateShot(testDist);
+						case PlayerDist.MEDIUM:
+							return CalculateShot(testDist);
+						case PlayerDist.FAR:
+							return false;
+						default:
+							return false;
+					}
+				}
+			case EnemyMood.AGGRESSIVE:
+				{
+					switch (testDist)
+					{
+						case PlayerDist.NEAR:
+							return CalculateShot(testDist);
+						case PlayerDist.MEDIUM:
+							return CalculateShot(testDist);
+						case PlayerDist.FAR:
+							return CalculateShot(testDist);
+						default:
+							return false;
+					}
+				}
+			default:
+				return false;
+		}
+	}
+
+	public bool CalculateShot(PlayerDist dist)
+	{
+		switch (dist)
+		{
+			case PlayerDist.NEAR:
+				{
+					if (Random.Range(0, 1) <= shotChance.high)
+						return true;
+					else return false;
+				}
+			case PlayerDist.MEDIUM:
+				{
+					if (Random.Range(0, 1) <= shotChance.medium)
+						return true;
+					else return false;
+				}
+			case PlayerDist.FAR:
+				{
+					if (Random.Range(0, 1) <= shotChance.low)
+						return true;
+					else return false;
+				}
+			default:
+				return false;
+		}
+	}
+
+	public PlayerDist FindPlayerDist(float distance)
+	{
+		if (distance <= dist.near)
+			return PlayerDist.NEAR;
+		else if (distance <= dist.medium)
+			return PlayerDist.MEDIUM;
+		else if (distance <= dist.far)
+			return PlayerDist.FAR;
+
+		else return PlayerDist.FAR;
+	}
 }
 public struct StateProbability
 {
@@ -106,6 +210,21 @@ public struct StateProbability
 	public Vector2 move;
 	public Vector2 look;
 }
+
+public struct DistRange
+{
+	public float far;
+	public float medium;
+	public float near;
+}
+
+public struct ShotChance
+{
+	public float high;
+	public float medium;
+	public float low;
+}
+
 public enum EnemyMood
 {
 	PASSIVE = 0,
@@ -120,3 +239,11 @@ public enum EnemyState
 	LOOK = 2,
 	SHOOT = 3
 }
+
+public enum PlayerDist
+{
+	FAR = 0,
+	MEDIUM = 1,
+	NEAR = 2
+}
+

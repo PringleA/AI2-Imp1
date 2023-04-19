@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public float maxHealth = 100;
-    public float health = 0;
+    public int maxHealth = 100;
+    public int health = 0;
 	public Slider healthBar;
 
 	// Start is called before the first frame update
@@ -19,5 +19,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         healthBar.value = health / maxHealth;
+    }
+
+    public void TakeDamage(int hp)
+    {
+        health -= hp;
     }
 }

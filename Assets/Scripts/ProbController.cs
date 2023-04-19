@@ -27,9 +27,9 @@ public class ProbController : MonoBehaviour
 
 	void CreateProbabilities()
 	{
-		dist.far = 17.5f;
-		dist.medium = 12.5f;
-		dist.near = 7.5f;
+		dist.far = 22.5f;
+		dist.medium = 16.5f;
+		dist.near = 8.5f;
 
 		shotChance.high = 0.75f;
 		shotChance.medium = 0.5f;
@@ -171,19 +171,19 @@ public class ProbController : MonoBehaviour
 		{
 			case PlayerDist.NEAR:
 				{
-					if (Random.Range(0, 1) <= shotChance.high)
+					if (Random.Range(0.0f, 1.0f) <= shotChance.high)
 						return true;
 					else return false;
 				}
 			case PlayerDist.MEDIUM:
 				{
-					if (Random.Range(0, 1) <= shotChance.medium)
+					if (Random.Range(0.0f, 1.0f) <= shotChance.medium)
 						return true;
 					else return false;
 				}
 			case PlayerDist.FAR:
 				{
-					if (Random.Range(0, 1) <= shotChance.low)
+					if (Random.Range(0.0f, 1.0f) <= shotChance.low)
 						return true;
 					else return false;
 				}

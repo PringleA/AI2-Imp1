@@ -10,11 +10,11 @@ public class EnemyClass : MonoBehaviour
 {
 	// public
 	public float maxHealth = 100;
-	public int damage = 10;
+	public float damage = 10;
 	public float lookSpeed = 1.0f;
 	public float maxLookTime = 30.0f;
 	public float maxRange = 300.0f;
-	public float fireRate = 3.0f;
+	public float fireSpdMult = 0.15f;
 	public bool isMoving = false;
 	public bool isHiding = false;
 	public bool isRotating = false;
@@ -26,6 +26,7 @@ public class EnemyClass : MonoBehaviour
 	private float rotLength = 0;
 	private float currentYrot = 0;
 	private float nextShotTime = 0;
+	private float fireRate = 3.0f;
 	private bool rotReversed = false;
 	private bool hidden = false;
 	private GameObject player;
@@ -148,13 +149,15 @@ public class EnemyClass : MonoBehaviour
 		//input distance between player and enemy
 		float distApart = Vector3.Distance(transform.position, player.transform.position);
 		// if shot is hit
-		if (behaviour.prob.AttemptShot(distApart, behaviour.mood) && nextShotTime > fireRate)
+		if (behaviour.prob.AttemptShot(distApart, behaviour.mood) == true)
 		{
 			PlayerController playerController = player.GetComponentInParent<PlayerController>();
 			if (playerController != null)
-				playerController.TakeDamage(damage);
-
-			nextShotTime = 0;
+				if (nextShotTime > fireRate)
+				{
+					playerController.TakeDamage(damage);
+					nextShotTime = 0;
+				}
 		}
 	}
 

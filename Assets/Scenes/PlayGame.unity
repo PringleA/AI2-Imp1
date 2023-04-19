@@ -384,6 +384,7 @@ MonoBehaviour:
   damage: 2
   range: 200
   fireRate: 0.5
+  player: {fileID: 135756641613574983}
   fpsCam: {fileID: 109678869}
   muzzleFlash: {fileID: 386971429}
 --- !u!1 &143011890
@@ -6360,6 +6361,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1895578318446709905, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2415300561789996372, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
       propertyPath: m_RootOrder
@@ -6419,6 +6425,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415300561789996375, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415300561789996375, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: maxHealth
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
@@ -6587,6 +6603,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1895578318446709905, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2415300561789996372, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
       propertyPath: m_RootOrder
@@ -6646,6 +6667,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415300561789996375, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415300561789996375, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: maxHealth
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6458453142564488786, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
@@ -7198,6 +7229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uncertainty: 0
+  playerDist: 0
 --- !u!1 &1361867157 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2565172042164984658, guid: 103dd6f4b447bd542be6ea8e4acdffb5,
@@ -7557,6 +7589,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1895578318446709905, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2415300561789996372, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
       propertyPath: m_RootOrder
@@ -7616,6 +7653,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415300561789996375, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415300561789996375, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: maxHealth
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6458453142564488786, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
@@ -7749,6 +7796,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1895578318446709905, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2415300561789996372, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
       propertyPath: m_RootOrder
@@ -7808,6 +7860,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415300561789996375, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415300561789996375, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: maxHealth
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6458453142564488786, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
@@ -8705,7 +8767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  health: 10
+  health: 0
   healthBar: {fileID: 1629829727}
 --- !u!136 &135756641613574987
 CapsuleCollider:

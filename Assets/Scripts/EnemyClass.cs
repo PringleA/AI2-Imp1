@@ -140,6 +140,7 @@ public class EnemyClass : MonoBehaviour
 		{
 			transform.LookAt(player.transform.position);
 			TryDamage();
+			behaviour.currentDelay = 0;
 		}
 		//shoot at player
 	}

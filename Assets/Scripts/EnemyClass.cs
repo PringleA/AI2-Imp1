@@ -15,6 +15,7 @@ public class EnemyClass : MonoBehaviour
 	public float maxLookTime = 30.0f;
 	public float maxRange = 300.0f;
 	public float fireSpdMult = 0.15f;
+	public float healthBarTimer = 0.0f;
 	public bool isMoving = false;
 	public bool isHiding = false;
 	public bool isRotating = false;
@@ -27,6 +28,7 @@ public class EnemyClass : MonoBehaviour
 	private float currentYrot = 0;
 	private float nextShotTime = 0;
 	private float fireRate = 10.0f;
+	private float barVisibilityTime = 5.0f;
 	private bool rotReversed = false;
 	private bool hidden = false;
 	private GameObject player;
@@ -66,6 +68,19 @@ public class EnemyClass : MonoBehaviour
 		StateTransform();
 
 		nextShotTime += Time.fixedDeltaTime;
+		healthBarTimer += Time.fixedDeltaTime;
+
+		// reset timer so healthbar stays visible if enemy sees player
+		if (playerVisible)
+			healthBarTimer = 0;
+
+		// set inactive after alloted visibility time
+		if (healthBarTimer >= barVisibilityTime)
+			healthBar.gameObject.SetActive(false);
+
+		// set active if before alloted visibility time
+		else if (healthBarTimer < barVisibilityTime)
+			healthBar.gameObject.SetActive(true);
 	}
 
 	private void StateTransform()
@@ -141,7 +156,7 @@ public class EnemyClass : MonoBehaviour
 			transform.LookAt(player.transform.position);
 			TryDamage();
 			behaviour.currentDelay = 0;
-		}
+		}		
 		//shoot at player
 	}
 

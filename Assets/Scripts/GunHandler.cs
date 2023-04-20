@@ -49,7 +49,8 @@ public class GunHandler : MonoBehaviour
 				enemy.transform.LookAt(player.transform.position);
 				enemy.behaviour.state = EnemyState.LOOK;
                 enemy.ShootRaycast();
-            }
+                enemy.healthBarTimer = 0;
+			}
         }
     }
 }

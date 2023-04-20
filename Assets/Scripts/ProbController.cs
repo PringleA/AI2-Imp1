@@ -27,9 +27,9 @@ public class ProbController : MonoBehaviour
 
 	void CreateProbabilities()
 	{
-		dist.far = 22.5f;
-		dist.medium = 16.5f;
-		dist.near = 8.5f;
+		dist.far = 25.0f;
+		dist.medium = 18.0f;
+		dist.near = 10.5f;
 
 		shotChance.high = 0.75f;
 		shotChance.medium = 0.5f;
@@ -194,14 +194,14 @@ public class ProbController : MonoBehaviour
 
 	public PlayerDist FindPlayerDist(float distance)
 	{
-		if (distance <= dist.near)
+		if (0 <= distance && distance < dist.near)
 			return PlayerDist.NEAR;
-		else if (distance <= dist.medium)
+		else if (distance >= dist.near && distance < dist.medium)
 			return PlayerDist.MEDIUM;
-		else if (distance <= dist.far)
+		else if (distance >= dist.medium && distance < dist.far)
 			return PlayerDist.FAR;
 
-		else return PlayerDist.FAR;
+		else return PlayerDist.MEDIUM;
 	}
 }
 public struct StateProbability

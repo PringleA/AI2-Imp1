@@ -165,6 +165,7 @@ public class EnemyClass : MonoBehaviour
 	{
 		if (other.transform.GetComponent<PlayerController>() is PlayerController playerCheck)
 		{
+			transform.LookAt(player.transform.position);
 			ShootRaycast();
 		}
 	}

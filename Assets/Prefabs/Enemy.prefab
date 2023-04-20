@@ -361,7 +361,7 @@ MonoBehaviour:
   lookSpeed: 5
   maxLookTime: 10
   maxRange: 999
-  fireRate: 3
+  fireSpdMult: 0.15
   isMoving: 0
   isHiding: 0
   isRotating: 0
@@ -419,7 +419,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.8, y: 0.5, z: 18.71}
+  m_Size: {x: 7.27, y: 0.5, z: 18.71}
   m_Center: {x: 0, y: 0, z: 10.12}
 --- !u!1 &3254960013744147635
 GameObject:

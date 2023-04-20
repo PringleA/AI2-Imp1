@@ -198,10 +198,10 @@ public class ProbController : MonoBehaviour
 			return PlayerDist.NEAR;
 		else if (distance >= dist.near && distance < dist.medium)
 			return PlayerDist.MEDIUM;
-		else if (distance >= dist.medium && distance < dist.far)
+		else if (distance >= dist.medium && distance <= dist.far)
 			return PlayerDist.FAR;
 
-		else return PlayerDist.MEDIUM;
+		else return PlayerDist.TOOFAR;
 	}
 }
 public struct StateProbability
@@ -244,6 +244,7 @@ public enum PlayerDist
 {
 	FAR = 0,
 	MEDIUM = 1,
-	NEAR = 2
+	NEAR = 2,
+	TOOFAR = 3
 }
 

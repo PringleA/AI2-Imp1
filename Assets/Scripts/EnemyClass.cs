@@ -174,7 +174,7 @@ public class EnemyClass : MonoBehaviour
 		float distApart = Vector3.Distance(transform.position, player.transform.position);
 		// if shot is hit
 		bool shotAttempt = behaviour.prob.AttemptShot(distApart, behaviour.mood);
-		if (shotAttempt == true)
+		if (shotAttempt)
 		{
 			if (nextShotTime > fireRate)
 			{
@@ -182,7 +182,10 @@ public class EnemyClass : MonoBehaviour
 				PlayerController playerController = player.GetComponentInParent<PlayerController>();
 				if (playerController != null)
 				{
-					Debug.Log("Shot Hit");
+					string hit = "Player hit for ";
+					hit += damage.ToString();
+					hit += " damage";
+					Debug.Log(hit);
 					playerController.TakeDamage(damage);
 					nextShotTime = 0;
 				}

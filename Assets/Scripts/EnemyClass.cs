@@ -83,6 +83,14 @@ public class EnemyClass : MonoBehaviour
 			healthBar.gameObject.SetActive(true);
 	}
 
+	public void ResetBools()
+	{
+		isMoving = false;
+		isHiding = false;
+		isRotating = false;
+		hidden = false;
+	}
+
 	private void StateTransform()
 	{
 		switch (behaviour.state)

@@ -6450,6 +6450,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
+      propertyPath: maxDelay
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: minDelay
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
       propertyPath: stateSwitchDelay
       value: 20
       objectReference: {fileID: 0}
@@ -6654,6 +6664,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
+      propertyPath: maxDelay
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: minDelay
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
       propertyPath: stateSwitchDelay
       value: 20
       objectReference: {fileID: 0}
@@ -6829,6 +6849,16 @@ PrefabInstance:
         type: 3}
       propertyPath: mood
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: maxDelay
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: minDelay
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6458453142564488786, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
@@ -7833,6 +7863,16 @@ PrefabInstance:
       propertyPath: mood
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: maxDelay
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: minDelay
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6458453142564488786, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -8052,6 +8092,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}
+      propertyPath: maxDelay
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: minDelay
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
       propertyPath: stateSwitchDelay
       value: 20
       objectReference: {fileID: 0}
@@ -8174,6 +8224,16 @@ PrefabInstance:
         type: 3}
       propertyPath: fireSpdMult
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: maxDelay
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494048663355600612, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
+        type: 3}
+      propertyPath: minDelay
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6458453142564488786, guid: 5a4498a0f8a1bf3499cc0310b14ef408,
         type: 3}

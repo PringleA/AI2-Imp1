@@ -31,9 +31,9 @@ public class ProbController : MonoBehaviour
 		dist.medium = 18.0f;
 		dist.near = 10.5f;
 
-		shotChance.high = 0.75f;
+		shotChance.high = 0.8f;
 		shotChance.medium = 0.5f;
-		shotChance.low = 0.25f;
+		shotChance.low = 0.3f;
 
 		// aggressive probablibites
 		probAggressive.hide.x = 0.0f;

@@ -9,8 +9,8 @@ public class BehaviourHandler : MonoBehaviour
     public EnemyState state;
     private EnemyClass enemyClass;
     public float stateSwitchDelay = 2.0f;
-    public float minDelay = 1.0f;
-    public float maxDelay = 5.0f;
+    public float minDelay = 6.0f;
+    public float maxDelay = 12.0f;
     public float currentDelay = 0;
 	public bool findNewState = false;
     public ProbController prob;
